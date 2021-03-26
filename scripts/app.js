@@ -2,16 +2,46 @@
 
 let states = ["Washington", "North Dakota", "Alabama"];
 let stateNameArray = [];
+let stateObj = {};
+let stateParentElement = document.getElementById('state');
+let submit = document.getElementById('submit');
 
-async function getData(url) {
+
+async function getStateName(url) {
   const response = await fetch(url);
   const data = await response.json();
   for (let i = 0; i < data.length; i++) {
-    stateNameArray.push(data[i].StateName)
+    stateNameArray.push(data[i].StateName);
   }
 };
-getData('https://bhamilton1000.github.io/SampleData/Web-Question-001/UnitedStatesWithCounties.json');
+getStateName('https://bhamilton1000.github.io/SampleData/Web-Question-001/UnitedStatesWithCounties.json');
 
+async function getData(e) {
+  e.preventDefault();
+  const response = await fetch('https://bhamilton1000.github.io/SampleData/Web-Question-001/UnitedStatesWithCounties.json');
+  const data = await response.json();
+  for (let i = 0; i < data.length; i++) {
+    stateObj[data[i].StateName] = { stateName: data[i].StateName, stateAbbr: data[i].StateAbbr, stateURL: data[i].StateURL }
+  }
+  let state = document.createElement('h1');
+  state.textContent = stateObj.Alabama.stateName;
+  let abbr = document.createElement('h3');
+  abbr.textContent = `State Abbr: ${stateObj.Alabama.stateAbbr}`;
+  let url = document.createElement('a');
+  url.setAttribute('href', stateObj.Alabama.stateURL)
+  url.innerHTML = 'Click Here for More info about ' + stateObj.Alabama.stateName;
+  stateParentElement.appendChild(state);
+  stateParentElement.appendChild(abbr);
+  stateParentElement.appendChild(url);
+};
+
+//getData();
+submit.addEventListener('click', getData);
+
+
+
+
+//autocomplete function
 function autocomplete(inp, arr) {
   /*the autocomplete function takes two arguments,
   the text field element and an array of possible autocompleted values:*/
@@ -60,7 +90,7 @@ function autocomplete(inp, arr) {
       /*If the arrow DOWN key is pressed,
       increase the currentFocus variable:*/
       currentFocus++;
-      /*and and make the current item more visible:*/
+      /*and make the current item more visible:*/
       addActive(x);
     } else if (e.keyCode == 38) { //up
       /*If the arrow UP key is pressed,
@@ -110,3 +140,9 @@ function autocomplete(inp, arr) {
 }
 
 autocomplete(document.getElementById("myInput"), stateNameArray);
+
+
+
+
+
+

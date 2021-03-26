@@ -11,18 +11,20 @@
 
 <body>
   <header>
-    <h1>Select a State</h1>
+    <h1>Select a State or Territory</h1>
   </header>
 
-  <!--Make sure the form has the autocomplete function switched off:-->
   <div id="centerform">
-    <form autocomplete="off" action="/action_page.php">
+    <form autocomplete="off">
       <div class="autocomplete" style="width:300px;">
         <input id="myInput" type="text" name="myCountry" placeholder="State...">
       </div>
-      <input type="submit">
+      <input type="submit" value="submit" id="submit">
     </form>
   </div>
+
+  <section id="state"></section>
+
   <script src="scripts/app.js"></script>
 </body>
 
