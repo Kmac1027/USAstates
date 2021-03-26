@@ -4,41 +4,41 @@ let states = ["Washington", "North Dakota", "Alabama"];
 let stateNameArray = [];
 let stateObj = {};
 let stateParentElement = document.getElementById('state');
-let submit = document.getElementById('submit');
+let form = document.getElementById('form');
 
 
-async function getStateName(url) {
-  const response = await fetch(url);
+async function getStateName() {
+  const response = await fetch('https://bhamilton1000.github.io/SampleData/Web-Question-001/UnitedStatesWithCounties.json');
   const data = await response.json();
   for (let i = 0; i < data.length; i++) {
     stateNameArray.push(data[i].StateName);
   }
 };
-getStateName('https://bhamilton1000.github.io/SampleData/Web-Question-001/UnitedStatesWithCounties.json');
+getStateName();
 
 async function getData(e) {
   e.preventDefault();
+  const name = e.target.myCountry.value
+  //console.log(name);
   const response = await fetch('https://bhamilton1000.github.io/SampleData/Web-Question-001/UnitedStatesWithCounties.json');
   const data = await response.json();
   for (let i = 0; i < data.length; i++) {
     stateObj[data[i].StateName] = { stateName: data[i].StateName, stateAbbr: data[i].StateAbbr, stateURL: data[i].StateURL }
   }
   let state = document.createElement('h1');
-  state.textContent = stateObj.Alabama.stateName;
+  state.textContent = stateObj[name].stateName;
   let abbr = document.createElement('h3');
-  abbr.textContent = `State Abbr: ${stateObj.Alabama.stateAbbr}`;
+  abbr.textContent = `State Abbr: ${stateObj[name].stateAbbr}`;
   let url = document.createElement('a');
-  url.setAttribute('href', stateObj.Alabama.stateURL)
-  url.innerHTML = 'Click Here for More info about ' + stateObj.Alabama.stateName;
+  url.setAttribute('href', stateObj[name].stateURL)
+  url.innerHTML = 'Click Here for More info about ' + stateObj[name].stateName;
   stateParentElement.appendChild(state);
   stateParentElement.appendChild(abbr);
   stateParentElement.appendChild(url);
 };
 
-//getData();
-submit.addEventListener('click', getData);
 
-
+form.addEventListener('submit', getData);
 
 
 //autocomplete function
