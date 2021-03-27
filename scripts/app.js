@@ -27,10 +27,10 @@ async function getData(e) {
   }
   let state = document.createElement('h1');
   state.textContent = stateObj[name].stateName;
-  let abbr = document.createElement('h3');
+  let abbr = document.createElement('h4');
   abbr.textContent = `State Abbr: ${stateObj[name].stateAbbr}`;
   let url = document.createElement('a');
-  url.setAttribute('href', stateObj[name].stateURL)
+  url.setAttribute('href', stateObj[name].stateURL);
   url.innerHTML = 'Click Here for More info about ' + stateObj[name].stateName;
   stateParentElement.appendChild(state);
   stateParentElement.appendChild(abbr);
