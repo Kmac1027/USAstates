@@ -6,7 +6,7 @@ let stateObj = {};
 let stateParentElement = document.getElementById('state');
 let form = document.getElementById('form');
 
-
+//this function populates the State Names array used in the autocomplete function
 async function getStateName() {
   const response = await fetch('https://bhamilton1000.github.io/SampleData/Web-Question-001/UnitedStatesWithCounties.json');
   const data = await response.json();
@@ -16,6 +16,8 @@ async function getStateName() {
 };
 getStateName();
 
+
+//this function puts together the object with all the information needed to display on the page
 async function getData(e) {
   e.preventDefault();
   const name = e.target.myCountry.value
@@ -55,7 +57,7 @@ async function getData(e) {
 form.addEventListener('submit', getData);
 
 
-//autocomplete function
+//this function creates the autocomplete functionality on the page
 function autocomplete(inp, arr) {
   /*the autocomplete function takes two arguments,
   the text field element and an array of possible autocompleted values:*/
