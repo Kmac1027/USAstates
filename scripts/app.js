@@ -19,6 +19,7 @@ getStateName();
 async function getData(e) {
   e.preventDefault();
   const name = e.target.myCountry.value
+  stateParentElement.innerHTML = '';
   //console.log(name);
   const response = await fetch('https://bhamilton1000.github.io/SampleData/Web-Question-001/UnitedStatesWithCounties.json');
   const data = await response.json();
