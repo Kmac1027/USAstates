@@ -24,17 +24,30 @@ async function getData(e) {
   const response = await fetch('https://bhamilton1000.github.io/SampleData/Web-Question-001/UnitedStatesWithCounties.json');
   const data = await response.json();
   for (let i = 0; i < data.length; i++) {
-    stateObj[data[i].StateName] = { stateName: data[i].StateName, stateAbbr: data[i].StateAbbr, stateURL: data[i].StateURL }
+    let pop = 0;
+    for (let j = 0; j < data[i].Counties.length; j++) {
+      pop = pop + data[i].Counties[j].Population
+    }
+    stateObj[data[i].StateName] = {
+      stateName: data[i].StateName,
+      stateAbbr: data[i].StateAbbr,
+      stateURL: data[i].StateURL,
+      pop: pop
+    }
+
   }
   let state = document.createElement('h1');
   state.textContent = stateObj[name].stateName;
   let abbr = document.createElement('h4');
   abbr.textContent = `State Abbr: ${stateObj[name].stateAbbr}`;
+  let population = document.createElement('h4');
+  population.textContent = 'Population: ' + stateObj[name].pop
   let url = document.createElement('a');
   url.setAttribute('href', stateObj[name].stateURL);
   url.innerHTML = 'Click Here for More info about ' + stateObj[name].stateName;
   stateParentElement.appendChild(state);
   stateParentElement.appendChild(abbr);
+  stateParentElement.appendChild(population);
   stateParentElement.appendChild(url);
 };
 
