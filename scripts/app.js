@@ -1,6 +1,5 @@
 'use strict'
 
-let states = ["Washington", "North Dakota", "Alabama"];
 let stateNameArray = [];
 let stateObj = {};
 let stateParentElement = document.getElementById('state');
